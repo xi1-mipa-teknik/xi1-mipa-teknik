@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>XI-1 MIPA Teknik Smanetra</title>
+  <meta name="description" content="Website resmi XI-1 MIPA Teknik Smanetra tahun ajaran 2026/2027. Informasi kelas, anggota, jadwal, kegiatan, dan kas kelas.">
+  <meta name="keywords" content="XI-1 MIPA Teknik, XI 1 MIPA Teknik, MIPA Teknik Smanetra, Smanetra, kelas XI-1, website kelas">
+  <meta name="author" content="XI-1 MIPA Teknik">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">XI</div>
+      <div>
+        <strong>XI-1 MIPA Teknik</strong>
+        <span>XI-1 MIPA Teknik</span>
+      </div>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Buka menu">☰</button>
+    <nav id="nav">
+      <a href="#home" class="active">Home</a>
+      <a href="#anggota">Anggota</a>
+      <a href="#struktur">Struktur</a>
+      <a href="#kas">Kas</a>
+      <a href="#jadwal">Jadwal</a>
+      <a href="#piket">Piket</a>
+      <a href="#galeri">Galeri</a>
+      <button id="themeToggle" class="theme-btn" title="Ganti tema">☾</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="page hero-section">
+      <div class="hero-copy">
+        <p class="eyebrow">WELCOME TO OUR CLASS</p>
+        <h1>XI-1 MIPA Teknik</h1>
+        <p class="tagline">Built to grow, learn, and make memories together.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#anggota">Lihat Anggota</a>
+          <a class="btn secondary" href="#jadwal">Lihat Jadwal</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+    <div class="photo-placeholder">
+        <img src="IMG_6432.jpeg" alt="Foto Kelas">
+    </div>
+</div>
+
+    <section class="quick-info">
+      <div><strong>34</strong><span>Anggota</span></div>
+      <div><strong>XI-1</strong><span>Kelas</span></div>
+      <div><strong>2026/2027</strong><span>Tahun Ajaran</span></div>
+      <div><strong>I'in Nur Cahayu, S.T</strong><span> KelaWalis</span></div>
+    </section>
+
+    <section class="page" id="info">
+      <div class="section-heading">
+        <div><p class="eyebrow">UPDATE</p><h2>Info Terbaru</h2></div>
+        <span class="muted" id="todayDate"></span>
+      </div>
+      <div class="info-grid">
+        <article class="info-item"><span class="dot"></span><div><b>Kegiatan kelas</b><p>Tambahkan informasi kegiatan kelas terbaru.</p></div></article>
+        <article class="info-item"><span class="dot"></span><div><b>Pengingat kas</b><p>Jangan lupa cek pembayaran kas minggu ini.</p></div></article>
+      </div>
+    </section>
+
+    <section class="page today">
+      <div class="section-heading"><div><p class="eyebrow">TODAY</p><h2>Hari Ini</h2></div></div>
+      <div class="today-grid single-today">
+        <div class="simple-box"><h3>Piket Hari Ini</h3><p>Kelompok 1</p><p class="muted">Ganti nama siswa sesuai jadwal piketmu.</p></div>
+      </div>
+    </section>
+
+    <section class="page" id="anggota">
+      <div class="section-heading"><div><p class="eyebrow">OUR PEOPLE</p><h2>Anggota Kelas</h2></div><span class="muted">34 siswa</span></div>
+      <input id="memberSearch" class="search" type="search" placeholder="Cari nama siswa...">
+      <div id="memberGrid" class="member-grid"></div>
+    </section>
+
+    <section class="page" id="struktur">
+      <div class="section-heading"><div><p class="eyebrow">CLASS TEAM</p><h2>Struktur Kelas</h2></div></div>
+      <div class="structure">
+        <div class="role main-role"><span>Wali Kelas</span><b>Nama Wali Kelas</b></div>
+        <div class="structure-row">
+          <div class="role"><span>Ketua</span><b>Nama Ketua</b></div>
+          <div class="role"><span>Wakil</span><b>Nama Wakil</b></div>
+        </div>
+        <div class="structure-row">
+          <div class="role"><span>Sekretaris</span><b>Nama Sekretaris</b></div>
+          <div class="role"><span>Bendahara</span><b>Nama Bendahara</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="kas">
+      <div class="section-heading"><div><p class="eyebrow">CLASS FUND</p><h2>Kas Kelas</h2></div></div>
+      <div class="money-grid">
+        <div><span>Saldo Kas</span><strong>Rp350.000</strong></div>
+        <div><span>Pemasukan</span><strong>Rp500.000</strong></div>
+        <div><span>Pengeluaran</span><strong>Rp150.000</strong></div>
+      </div>
+      <div class="table-wrap">
+        <table><thead><tr><th>Tanggal</th><th>Keterangan</th><th>Nominal</th></tr></thead>
+        <tbody>
+          <tr><td>12 Sep</td><td>Iuran kas</td><td class="income">+Rp50.000</td></tr>
+          <tr><td>14 Sep</td><td>Beli spidol</td><td class="expense">-Rp15.000</td></tr>
+          <tr><td>18 Sep</td><td>Iuran kas</td><td class="income">+Rp100.000</td></tr>
+        </tbody></table>
+      </div>
+      <h3 class="subheading">Status Pembayaran</h3>
+      <div id="paymentGrid" class="payment-grid"></div>
+    </section>
+
+    <section class="page" id="jadwal">
+      <div class="section-heading"><div><p class="eyebrow">SCHEDULE</p><h2>Jadwal Pelajaran</h2></div></div>
+      <div class="table-wrap">
+        <table class="schedule"><thead><tr><th>Jam</th><th>Senin</th><th>Selasa</th><th>Rabu</th><th>Kamis</th><th>Jumat</th></tr></thead>
+        <tbody>
+          <tr><td>07.00</td><td>Matematika</td><td>Fisika</td><td>Kimia</td><td>Biologi</td><td>Bahasa Indo.</td></tr>
+          <tr><td>08.30</td><td>Fisika</td><td>Matematika</td><td>Bahasa Inggris</td><td>Kimia</td><td>Informatika</td></tr>
+          <tr><td>10.00</td><td>Bahasa Indo.</td><td>Sejarah</td><td>Matematika</td><td>PJOK</td><td>Agama</td></tr>
+        </tbody></table>
+      </div>
+    </section>
+<section class="page" id="piket">
+      <div class="section-heading"><div><p class="eyebrow">DUTY</p><h2>Jadwal Piket</h2></div></div>
+      <div class="duty-grid">
+        <div><b>Senin</b><p>Andi, Bima, Citra, Dimas, Eka, Fajar</p><button class="done-btn">Tandai selesai</button></div>
+        <div><b>Selasa</b><p>Gina, Hadi, Intan, Joko, Kiki, Lala</p><button class="done-btn">Tandai selesai</button></div>
+        <div><b>Rabu</b><p>Maya, Nanda, Oki, Putri, Raka, Sinta</p><button class="done-btn">Tandai selesai</button></div>
+        <div><b>Kamis</b><p>Tio, Udin, Vina, Wawan, Yani, Zaki</p><button class="done-btn">Tandai selesai</button></div>
+        <div><b>Jumat</b><p>Nama 26, Nama 27, Nama 28, Nama 29, Nama 30, Nama 31</p><button class="done-btn">Tandai selesai</button></div>
+      </div>
+    </section>
+
+    <section class="page" id="galeri">
+      <div class="section-heading"><div><p class="eyebrow">MEMORIES</p><h2>Galeri</h2></div></div>
+      <div class="gallery-grid">
+        <div class="gallery-item"><div class="gallery-placeholder">CLASSMEETING</div><b>Classmeeting</b><span>12 foto</span></div>
+        <div class="gallery-item"><div class="gallery-placeholder">STUDY TOUR</div><b>Study Tour</b><span>20 foto</span></div>
+        <div class="gallery-item"><div class="gallery-placeholder">KEGIATAN</div><b>Kegiatan Sekolah</b><span>16 foto</span></div>
+        <div class="gallery-item"><div class="gallery-placeholder">RANDOM</div><b>Random Moments</b><span>8 foto</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><p>XI-1 MIPA Teknik · Made for our class.</p></footer>
+  <script src="script.js"></script>
+</body>
+</html>
