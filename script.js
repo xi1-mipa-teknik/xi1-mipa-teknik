@@ -16,6 +16,264 @@ function formatRupiah(num) {
 }
 
 // ============================================================================
+// 0. SISTEM AKSES: MODE PENGUNJUNG & MODE ADMIN
+// ============================================================================
+// CATATAN KEAMANAN (baca ini sebelum mengganti kredensial):
+// Website ini adalah situs statis (HTML/CSS/JS) tanpa server/database sungguhan,
+// dan seluruh data (kas, piket, galeri) tersimpan di localStorage/IndexedDB milik
+// MASING-MASING browser pengunjung, bukan di server bersama. Karena itu, proteksi
+// yang benar-benar aman (role enforcement di level server/database) TIDAK bisa
+// dibuat 100% hanya dari frontend statis -- siapapun yang benar-benar ingin bisa
+// membuka DevTools dan mengubah kode berjalan di browsernya sendiri.
+// Yang diterapkan di sini adalah lapisan proteksi terbaik yang mungkin untuk situs
+// statis: password TIDAK disimpan dalam bentuk plaintext (hanya hash SHA-256 yang
+// disimpan), sesi admin memakai sessionStorage (otomatis logout saat tab ditutup),
+// dan SETIAP fungsi tambah/edit/hapus melakukan pengecekan role admin sebelum
+// dijalankan (bukan hanya menyembunyikan tombol lewat CSS).
+// Jika kelas benar-benar membutuhkan proteksi tingkat produksi (multi-user, data
+// tersimpan di server, tidak bisa dibypass lewat DevTools), gunakan Firebase
+// Authentication + Firestore Security Rules atau Supabase Auth + Row Level
+// Security, lalu hubungkan tombol-tombol admin di bawah ini ke layanan tersebut.
+const ADMIN_CONFIG = {
+  // Username default admin. Ganti sesuai kebutuhan kelas.
+  username: "admin",
+  // Hash SHA-256 dari password (BUKAN password asli/plaintext).
+  // Password default saat ini: "XI1Teknik#2026"
+  // Cara mengganti password:
+  //   1. Buka website ini di browser, tekan F12 untuk membuka Console.
+  //   2. Jalankan kode berikut (ganti "PASSWORD_BARU_ANDA" sesuai keinginan):
+  //        crypto.subtle.digest("SHA-256", new TextEncoder().encode("PASSWORD_BARU_ANDA"))
+  //          .then(buf => console.log(Array.from(new Uint8Array(buf))
+  //          .map(b => b.toString(16).padStart(2, "0")).join("")));
+  //   3. Salin hasil hash yang muncul di Console, lalu tempel sebagai nilai
+  //      "passwordHash" di bawah ini (ganti seluruh isi di antara tanda kutip).
+  passwordHash: "9e9eb94fd233cb61216d8d54bf6749897364b4a8d2db7af945fc315c0e4630eb"
+};
+
+const ADMIN_SESSION_KEY = "xi1_admin_session_v1";
+
+// Status admin saat ini (di-load dari sessionStorage tab ini saja)
+let isAdminMode = sessionStorage.getItem(ADMIN_SESSION_KEY) === "1";
+
+// SHA-256 menggunakan Web Crypto API (tersedia di konteks aman: https/localhost/file://)
+// dengan fallback implementasi SHA-256 murni JavaScript jika Web Crypto tidak tersedia,
+// supaya login admin tetap berfungsi di lingkungan apapun.
+async function sha256Hex(message) {
+  if (window.crypto && window.crypto.subtle && window.crypto.subtle.digest) {
+    try {
+      const data = new TextEncoder().encode(message);
+      const hashBuffer = await window.crypto.subtle.digest("SHA-256", data);
+      return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
+    } catch (err) {
+      console.warn("Web Crypto SHA-256 gagal, menggunakan fallback:", err);
+    }
+  }
+  return sha256HexFallback(message);
+}
+
+// Implementasi SHA-256 murni JavaScript (fallback, tanpa dependensi eksternal)
+function sha256HexFallback(message) {
+  function rightRotate(value, amount) {
+    return (value >>> amount) | (value << (32 - amount));
+  }
+  const utf8 = unescape(encodeURIComponent(message));
+  const bytes = [];
+  for (let i = 0; i < utf8.length; i++) bytes.push(utf8.charCodeAt(i));
+
+  const bitLength = bytes.length * 8;
+  bytes.push(0x80);
+  while (bytes.length % 64 !== 56) bytes.push(0);
+  for (let i = 7; i >= 0; i--) bytes.push((bitLength / Math.pow(2, i * 8)) & 0xff);
+
+  const k = [
+    0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+    0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+    0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+    0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+    0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+    0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+    0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+    0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+  ];
+  let h0 = 0x6a09e667, h1 = 0xbb67ae85, h2 = 0x3c6ef372, h3 = 0xa54ff53a;
+  let h4 = 0x510e527f, h5 = 0x9b05688c, h6 = 0x1f83d9ab, h7 = 0x5be0cd19;
+
+  for (let chunkStart = 0; chunkStart < bytes.length; chunkStart += 64) {
+    const w = new Array(64).fill(0);
+    for (let i = 0; i < 16; i++) {
+      w[i] = (bytes[chunkStart + i * 4] << 24) | (bytes[chunkStart + i * 4 + 1] << 16) |
+             (bytes[chunkStart + i * 4 + 2] << 8) | (bytes[chunkStart + i * 4 + 3]);
+    }
+    for (let i = 16; i < 64; i++) {
+      const s0 = rightRotate(w[i - 15], 7) ^ rightRotate(w[i - 15], 18) ^ (w[i - 15] >>> 3);
+      const s1 = rightRotate(w[i - 2], 17) ^ rightRotate(w[i - 2], 19) ^ (w[i - 2] >>> 10);
+      w[i] = (w[i - 16] + s0 + w[i - 7] + s1) | 0;
+    }
+
+    let a = h0, b = h1, c = h2, d = h3, e = h4, f = h5, g = h6, h = h7;
+    for (let i = 0; i < 64; i++) {
+      const S1 = rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25);
+      const chVal = (e & f) ^ (~e & g);
+      const temp1 = (h + S1 + chVal + k[i] + w[i]) | 0;
+      const S0 = rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22);
+      const majVal = (a & b) ^ (a & c) ^ (b & c);
+      const temp2 = (S0 + majVal) | 0;
+
+      h = g; g = f; f = e; e = (d + temp1) | 0;
+      d = c; c = b; b = a; a = (temp1 + temp2) | 0;
+    }
+
+    h0 = (h0 + a) | 0; h1 = (h1 + b) | 0; h2 = (h2 + c) | 0; h3 = (h3 + d) | 0;
+    h4 = (h4 + e) | 0; h5 = (h5 + f) | 0; h6 = (h6 + g) | 0; h7 = (h7 + h) | 0;
+  }
+
+  return [h0, h1, h2, h3, h4, h5, h6, h7].map(v => (v >>> 0).toString(16).padStart(8, "0")).join("");
+}
+
+// Wajib dipanggil di AWAL setiap fungsi tambah/edit/hapus data (kas, piket, galeri, dst).
+// Mengembalikan true jika role saat ini adalah ADMIN; jika bukan, tampilkan peringatan
+// dan kembalikan false sehingga fungsi pemanggil harus langsung berhenti (return).
+function requireAdmin() {
+  if (isAdminMode) return true;
+  alert("Aksi ini hanya bisa dilakukan oleh Admin. Silakan login sebagai Admin terlebih dahulu.");
+  return false;
+}
+
+// Menampilkan/menyembunyikan semua elemen pengelolaan statis sesuai role saat ini,
+// lalu me-render ulang seluruh komponen dinamis agar tombol admin (yang dibuat lewat
+// template string di dalam JS) ikut sinkron dengan role terbaru.
+function applyRoleUI() {
+  document.body.classList.toggle("is-admin", isAdminMode);
+
+  document.querySelectorAll(".admin-only-el").forEach(el => {
+    el.style.display = isAdminMode ? "" : "none";
+  });
+  document.querySelectorAll(".visitor-only-el").forEach(el => {
+    el.style.display = isAdminMode ? "none" : "";
+  });
+
+  // Re-render komponen yang tombol pengelolaannya dibuat secara dinamis lewat JS
+  if (typeof renderPayments === "function") renderPayments();
+  if (typeof renderKas === "function") renderKas();
+  if (typeof renderPiket === "function") renderPiket();
+  if (typeof combineAndRenderDocs === "function") combineAndRenderDocs();
+}
+
+// ---- Wiring Modal Login Admin & Tombol Logout ----
+const btnAdminLogin = document.getElementById("btnAdminLogin");
+const btnAdminLogout = document.getElementById("btnAdminLogout");
+const adminLoginModal = document.getElementById("adminLoginModal");
+const closeAdminLoginModal = document.getElementById("closeAdminLoginModal");
+const cancelAdminLoginModal = document.getElementById("cancelAdminLoginModal");
+const adminLoginForm = document.getElementById("adminLoginForm");
+const adminUsernameInput = document.getElementById("adminUsernameInput");
+const adminPasswordInput = document.getElementById("adminPasswordInput");
+const adminLoginErrorMsg = document.getElementById("adminLoginErrorMsg");
+const adminLoginSubmitBtn = document.getElementById("adminLoginSubmitBtn");
+
+function showAdminLoginError(msg) {
+  if (adminLoginErrorMsg) {
+    adminLoginErrorMsg.textContent = msg;
+    adminLoginErrorMsg.style.display = "block";
+  } else {
+    alert(msg);
+  }
+}
+
+function clearAdminLoginError() {
+  if (adminLoginErrorMsg) {
+    adminLoginErrorMsg.textContent = "";
+    adminLoginErrorMsg.style.display = "none";
+  }
+}
+
+function openAdminLoginModal() {
+  if (!adminLoginModal) return;
+  clearAdminLoginError();
+  if (adminUsernameInput) adminUsernameInput.value = "";
+  if (adminPasswordInput) adminPasswordInput.value = "";
+  adminLoginModal.classList.add("open");
+  adminLoginModal.setAttribute("aria-hidden", "false");
+  setTimeout(() => { if (adminUsernameInput) adminUsernameInput.focus(); }, 60);
+}
+
+function closeAdminLoginModalDialog() {
+  if (!adminLoginModal) return;
+  clearAdminLoginError();
+  adminLoginModal.classList.remove("open");
+  adminLoginModal.setAttribute("aria-hidden", "true");
+}
+
+if (btnAdminLogin) btnAdminLogin.addEventListener("click", openAdminLoginModal);
+if (closeAdminLoginModal) closeAdminLoginModal.addEventListener("click", closeAdminLoginModalDialog);
+if (cancelAdminLoginModal) cancelAdminLoginModal.addEventListener("click", closeAdminLoginModalDialog);
+
+if (adminLoginModal) {
+  adminLoginModal.addEventListener("click", e => {
+    if (e.target === adminLoginModal) closeAdminLoginModalDialog();
+  });
+}
+
+if (adminLoginForm) {
+  adminLoginForm.addEventListener("submit", async e => {
+    e.preventDefault();
+    clearAdminLoginError();
+
+    const usernameInput = (adminUsernameInput.value || "").trim();
+    const passwordInput = adminPasswordInput.value || "";
+
+    if (!usernameInput || !passwordInput) {
+      showAdminLoginError("Harap isi username dan password.");
+      return;
+    }
+
+    if (adminLoginSubmitBtn) {
+      adminLoginSubmitBtn.disabled = true;
+      adminLoginSubmitBtn.textContent = "Memeriksa...";
+    }
+
+    try {
+      const enteredHash = await sha256Hex(passwordInput);
+      const usernameMatch = usernameInput.toLowerCase() === ADMIN_CONFIG.username.toLowerCase();
+      const passwordMatch = enteredHash === ADMIN_CONFIG.passwordHash;
+
+      if (usernameMatch && passwordMatch) {
+        isAdminMode = true;
+        sessionStorage.setItem(ADMIN_SESSION_KEY, "1");
+        closeAdminLoginModalDialog();
+        applyRoleUI();
+      } else {
+        showAdminLoginError("Username atau password admin salah.");
+      }
+    } catch (err) {
+      showAdminLoginError("Terjadi kesalahan saat memeriksa login. Coba lagi.");
+      console.warn("Gagal memeriksa login admin:", err);
+    } finally {
+      if (adminLoginSubmitBtn) {
+        adminLoginSubmitBtn.disabled = false;
+        adminLoginSubmitBtn.textContent = "Login";
+      }
+    }
+  });
+}
+
+if (btnAdminLogout) {
+  btnAdminLogout.addEventListener("click", () => {
+    if (confirm("Keluar dari mode Admin dan kembali ke mode Pengunjung?")) {
+      isAdminMode = false;
+      sessionStorage.removeItem(ADMIN_SESSION_KEY);
+      applyRoleUI();
+    }
+  });
+}
+
+document.addEventListener("keydown", e => {
+  if (adminLoginModal && adminLoginModal.classList.contains("open") && e.key === "Escape") {
+    closeAdminLoginModalDialog();
+  }
+});
+
+// ============================================================================
 // 2. ANGGOTA KELAS & PENCARIAN
 // ============================================================================
 const memberGrid = document.getElementById("memberGrid");
@@ -89,29 +347,35 @@ function renderPayments() {
 
   paymentGrid.innerHTML = students.map((name, i) => {
     const isPaid = paymentStatus[i];
+    const adminTitle = `Klik untuk beralih status ${name}`;
+    const visitorTitle = `Status pembayaran ${name} (hanya Admin yang dapat mengubah)`;
     return `
-      <div class="payment ${isPaid ? "paid" : "unpaid"}" data-index="${i}" title="Klik untuk beralih status ${name}">
+      <div class="payment ${isPaid ? "paid" : "unpaid"} ${isAdminMode ? "" : "readonly-el"}" data-index="${i}" title="${isAdminMode ? adminTitle : visitorTitle}">
         <span class="payment-status-tag">${isPaid ? "✓ Sudah Bayar" : "☐ Belum Bayar"}</span>
         <span class="payment-name">${name}</span>
       </div>
     `;
   }).join("");
 
-  paymentGrid.querySelectorAll(".payment").forEach(el => {
-    el.addEventListener("click", () => {
-      const idx = parseInt(el.getAttribute("data-index"), 10);
-      if (!isNaN(idx)) {
-        paymentStatus[idx] = !paymentStatus[idx];
-        savePaymentStatus();
-        renderPayments();
-      }
+  if (isAdminMode) {
+    paymentGrid.querySelectorAll(".payment").forEach(el => {
+      el.addEventListener("click", () => {
+        if (!requireAdmin()) return;
+        const idx = parseInt(el.getAttribute("data-index"), 10);
+        if (!isNaN(idx)) {
+          paymentStatus[idx] = !paymentStatus[idx];
+          savePaymentStatus();
+          renderPayments();
+        }
+      });
     });
-  });
+  }
 }
 renderPayments();
 
 if (btnResetPayment) {
   btnResetPayment.addEventListener("click", () => {
+    if (!requireAdmin()) return;
     if (confirm("Reset seluruh status pembayaran kas ke status awal (27 Sudah Bayar, 7 Belum Bayar)?")) {
       paymentStatus = getDefaultPaymentStatus();
       savePaymentStatus();
@@ -196,7 +460,7 @@ function renderKas() {
           <td>${tx.desc}</td>
           <td class="${isIncome ? "income" : "expense"}">${isIncome ? "+" : "-"}${formatRupiah(tx.amount)}</td>
           <td class="td-action">
-            <button type="button" class="btn-delete-tx" data-id="${tx.id}" title="Hapus transaksi ini">Hapus</button>
+            ${isAdminMode ? `<button type="button" class="btn-delete-tx" data-id="${tx.id}" title="Hapus transaksi ini">Hapus</button>` : ""}
           </td>
         </tr>
       `;
@@ -204,6 +468,7 @@ function renderKas() {
 
     transactionTableBody.querySelectorAll(".btn-delete-tx").forEach(btn => {
       btn.addEventListener("click", () => {
+        if (!requireAdmin()) return;
         const id = btn.getAttribute("data-id");
         const item = kasTransactions.find(t => t.id === id);
         if (item && confirm(`Hapus transaksi "${item.desc}" (${formatRupiah(item.amount)})?`)) {
@@ -231,6 +496,7 @@ const closeKasModal = document.getElementById("closeKasModal");
 const cancelKasModal = document.getElementById("cancelKasModal");
 
 function openKasModal(type) {
+  if (!requireAdmin()) return;
   if (!kasModal) return;
   kasTypeInput.value = type;
   if (type === "income") {
@@ -271,6 +537,7 @@ if (kasModal) {
 if (kasForm) {
   kasForm.addEventListener("submit", e => {
     e.preventDefault();
+    if (!requireAdmin()) { closeKasModalDialog(); return; }
     const amount = parseInt(kasAmountInput.value, 10);
     const desc = kasDescInput.value.trim();
     let date = kasDateInput.value.trim();
@@ -359,12 +626,13 @@ function renderPiket() {
         <span class="piket-num-badge">${i + 1}</span>
         <b>${name}</b>
       </div>
-      <button type="button" class="piket-del-btn" data-index="${i}" title="Hapus ${name} dari daftar piket">&times;</button>
+      ${isAdminMode ? `<button type="button" class="piket-del-btn" data-index="${i}" title="Hapus ${name} dari daftar piket">&times;</button>` : ""}
     </li>
   `).join("");
 
   piketTodayList.querySelectorAll(".piket-del-btn").forEach(btn => {
     btn.addEventListener("click", () => {
+      if (!requireAdmin()) return;
       const idx = parseInt(btn.getAttribute("data-index"), 10);
       if (!isNaN(idx)) {
         piketNames.splice(idx, 1);
@@ -378,6 +646,7 @@ renderPiket();
 
 if (btnToggleAddPiket) {
   btnToggleAddPiket.addEventListener("click", () => {
+    if (!requireAdmin()) return;
     if (addPiketForm) {
       const isHidden = addPiketForm.style.display === "none";
       addPiketForm.style.display = isHidden ? "flex" : "none";
@@ -398,6 +667,7 @@ if (btnCancelAddPiket) {
 if (addPiketForm) {
   addPiketForm.addEventListener("submit", e => {
     e.preventDefault();
+    if (!requireAdmin()) return;
     const name = piketNameInput.value.trim();
     if (!name) return;
     piketNames.push(name);
@@ -410,6 +680,7 @@ if (addPiketForm) {
 
 if (btnClearAllPiket) {
   btnClearAllPiket.addEventListener("click", () => {
+    if (!requireAdmin()) return;
     if (piketNames.length === 0) return;
     if (confirm("Hapus seluruh siswa piket hari ini?")) {
       piketNames = [];
@@ -421,6 +692,7 @@ if (btnClearAllPiket) {
 
 if (btnResetPiket) {
   btnResetPiket.addEventListener("click", () => {
+    if (!requireAdmin()) return;
     if (confirm("Kembalikan daftar piket hari ini ke susunan awal?")) {
       piketNames = [...defaultPiket];
       savePiketNames();
@@ -719,7 +991,7 @@ function renderDocumentationList() {
             <span class="doc-photo-idx">#${numLabel}</span>
             <span class="doc-photo-zoom-icon">🔍</span>
           </div>
-          ${isCustom ? `<button type="button" class="doc-photo-del-btn" data-doc-id="${doc.id}" data-photo-id="${photo.id}" title="Hapus foto ini">&times;</button>` : ""}
+          ${(isAdminMode && isCustom) ? `<button type="button" class="doc-photo-del-btn" data-doc-id="${doc.id}" data-photo-id="${photo.id}" title="Hapus foto ini">&times;</button>` : ""}
         </div>
       `;
     }).join("");
@@ -738,6 +1010,7 @@ function renderDocumentationList() {
               <span class="doc-count-badge">📷 ${photoCount} foto</span>
             </div>
           </div>
+          ${isAdminMode ? `
           <div class="doc-head-actions">
             <button type="button" class="btn-doc-action primary-doc btn-append-photo" data-doc-id="${doc.id}">
               <span>+</span> Tambah Foto
@@ -748,6 +1021,7 @@ function renderDocumentationList() {
               </button>
             ` : ""}
           </div>
+          ` : ""}
         </div>
 
         <!-- REEL FOTO HORIZONTAL BISA DI-SCROLL -->
@@ -805,6 +1079,7 @@ function attachDocumentationCardEvents() {
   // 3. Tombol "+ Tambah Foto" pada dokumentasi tertentu
   docList.querySelectorAll(".btn-append-photo").forEach(btn => {
     btn.addEventListener("click", () => {
+      if (!requireAdmin()) return;
       const docId = btn.getAttribute("data-doc-id");
       openAppendModalDialog(docId);
     });
@@ -813,6 +1088,7 @@ function attachDocumentationCardEvents() {
   // 4. Tombol "Hapus Dokumentasi"
   docList.querySelectorAll(".btn-delete-doc").forEach(btn => {
     btn.addEventListener("click", () => {
+      if (!requireAdmin()) return;
       const docId = btn.getAttribute("data-doc-id");
       const targetDoc = allDocumentations.find(d => d.id === docId);
       if (!targetDoc) return;
@@ -828,6 +1104,7 @@ function attachDocumentationCardEvents() {
   docList.querySelectorAll(".doc-photo-del-btn").forEach(btn => {
     btn.addEventListener("click", e => {
       e.stopPropagation();
+      if (!requireAdmin()) return;
       const docId = btn.getAttribute("data-doc-id");
       const photoId = btn.getAttribute("data-photo-id");
       const targetDoc = customDocumentations.find(d => d.id === docId);
@@ -1025,6 +1302,7 @@ function clearDocError() {
 }
 
 function openDocModalDialog() {
+  if (!requireAdmin()) return;
   if (!docModal) return;
   clearDocError();
   docTitleInput.value = "";
@@ -1116,6 +1394,7 @@ function renderDocFilesPreview() {
 if (docForm) {
   docForm.addEventListener("submit", async e => {
     e.preventDefault();
+    if (!requireAdmin()) { closeDocModalDialog(); return; }
     clearDocError();
 
     const title = docTitleInput.value.trim();
@@ -1220,6 +1499,7 @@ function clearAppendError() {
 }
 
 function openAppendModalDialog(docId) {
+  if (!requireAdmin()) return;
   if (!appendPhotoModal) return;
   clearAppendError();
   const targetDoc = allDocumentations.find(d => d.id === docId);
@@ -1312,6 +1592,7 @@ function renderAppendFilesPreview() {
 if (appendForm) {
   appendForm.addEventListener("submit", async e => {
     e.preventDefault();
+    if (!requireAdmin()) { closeAppendModalDialog(); return; }
     clearAppendError();
     const docId = appendDocIdInput.value;
     const targetDoc = allDocumentations.find(d => d.id === docId);
@@ -1463,3 +1744,10 @@ document.addEventListener("click", e => {
     toggleMenu(true);
   }
 });
+
+// ============================================================================
+// 10. TERAPKAN STATUS ROLE (PENGUNJUNG/ADMIN) SAAT HALAMAN PERTAMA DIMUAT
+// ============================================================================
+// Dipanggil terakhir agar seluruh komponen (kas, piket, galeri) sudah ter-render
+// minimal satu kali sebelum disesuaikan ulang berdasarkan role sesi saat ini.
+applyRoleUI();
