@@ -1,0 +1,8 @@
+{
+  "name": "XI-1 MIPA Teknik Smanetra",
+  "description": "Website resmi XI-1 MIPA Teknik Smanetra tahun ajaran 2026/2027. Informasi kelas, anggota, kegiatan, jadwal, dan dokumentasi kelas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

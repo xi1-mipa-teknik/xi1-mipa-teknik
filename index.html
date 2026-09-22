@@ -20,7 +20,7 @@
   <meta property="og:description" content="Website resmi XI-1 MIPA Teknik Smanetra tahun ajaran 2026/2027.">
   <meta property="og:type" content="website">
 
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=20260922v4">
 </head>
 <body>
   <header class="topbar">
@@ -85,7 +85,32 @@
     <section class="page today">
       <div class="section-heading"><div><p class="eyebrow">TODAY</p><h2>Hari Ini</h2></div></div>
       <div class="today-grid single-today">
-        <div class="simple-box"><h3>Piket Hari Ini</h3><p>Kelompok 1</p><p class="muted">Ganti nama siswa sesuai jadwal piketmu.</p></div>
+        <div class="simple-box">
+          <div class="box-header-row">
+            <div>
+              <h3>Piket Hari Ini</h3>
+              <p class="muted" id="piketCount">Kelompok 1</p>
+            </div>
+            <div class="piket-quick-actions">
+              <button type="button" class="btn-action-ghost" id="btnToggleAddPiket">+ Tambah Nama</button>
+              <button type="button" class="btn-action-ghost text-muted-btn" id="btnResetPiket" title="Reset ke nama default">Reset Piket</button>
+            </div>
+          </div>
+          
+          <form id="addPiketForm" class="piket-add-form" style="display: none;">
+            <input type="text" id="piketNameInput" placeholder="Ketik nama siswa piket..." required maxlength="30">
+            <button type="submit" class="btn primary btn-sm">Tambahkan</button>
+            <button type="button" class="btn secondary btn-sm" id="btnCancelAddPiket">Batal</button>
+          </form>
+
+          <ul class="piket-today-list" id="piketTodayList">
+            <!-- Rendered by JS -->
+          </ul>
+
+          <div class="piket-footer-row">
+            <button type="button" class="btn-link-danger" id="btnClearAllPiket">Hapus Semua</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -111,21 +136,40 @@
     </section>
 
     <section class="page" id="kas">
-      <div class="section-heading"><div><p class="eyebrow">CLASS FUND</p><h2>Kas Kelas</h2></div></div>
+      <div class="section-heading">
+        <div><p class="eyebrow">CLASS FUND</p><h2>Kas Kelas</h2></div>
+        <div class="kas-actions">
+          <button type="button" class="btn btn-sm btn-income" id="btnTambahKas">+ Tambah Kas</button>
+          <button type="button" class="btn btn-sm btn-expense" id="btnPengeluaran">− Pengeluaran</button>
+        </div>
+      </div>
       <div class="money-grid">
-        <div><span>Saldo Kas</span><strong>Rp350.000</strong></div>
-        <div><span>Pemasukan</span><strong>Rp500.000</strong></div>
-        <div><span>Pengeluaran</span><strong>Rp150.000</strong></div>
+        <div><span>Saldo Kas</span><strong id="saldoKas">Rp350.000</strong></div>
+        <div><span>Pemasukan</span><strong id="totalPemasukan">Rp500.000</strong></div>
+        <div><span>Pengeluaran</span><strong id="totalPengeluaran">Rp150.000</strong></div>
       </div>
       <div class="table-wrap">
-        <table><thead><tr><th>Tanggal</th><th>Keterangan</th><th>Nominal</th></tr></thead>
-        <tbody>
-          <tr><td>12 Sep</td><td>Iuran kas</td><td class="income">+Rp50.000</td></tr>
-          <tr><td>14 Sep</td><td>Beli spidol</td><td class="expense">-Rp15.000</td></tr>
-          <tr><td>18 Sep</td><td>Iuran kas</td><td class="income">+Rp100.000</td></tr>
-        </tbody></table>
+        <table>
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Keterangan</th>
+              <th>Nominal</th>
+              <th class="th-action">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="transactionTableBody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
       </div>
-      <h3 class="subheading">Status Pembayaran</h3>
+      <div class="subheading-wrap">
+        <h3 class="subheading">Status Pembayaran</h3>
+        <div class="payment-controls">
+          <span id="paymentSummary" class="muted">27 Lunas · 7 Belum</span>
+          <button type="button" class="btn-action-ghost text-muted-btn" id="btnResetPayment" title="Reset pembayaran ke status awal">Reset Status</button>
+        </div>
+      </div>
       <div id="paymentGrid" class="payment-grid"></div>
     </section>
 
@@ -140,8 +184,7 @@
         </tbody></table>
       </div>
     </section>
-
-    <section class="page" id="piket">
+<section class="page" id="piket">
       <div class="section-heading"><div><p class="eyebrow">DUTY</p><h2>Jadwal Piket</h2></div></div>
       <div class="duty-grid">
         <div><b>Senin</b><p>Andi, Bima, Citra, Dimas, Eka, Fajar</p><button class="done-btn">Tandai selesai</button></div>
@@ -153,17 +196,186 @@
     </section>
 
     <section class="page" id="galeri">
-      <div class="section-heading"><div><p class="eyebrow">MEMORIES</p><h2>Galeri</h2></div></div>
-      <div class="gallery-grid">
-        <div class="gallery-item"><div class="gallery-placeholder">CLASSMEETING</div><b>Classmeeting</b><span>12 foto</span></div>
-        <div class="gallery-item"><div class="gallery-placeholder">STUDY TOUR</div><b>Study Tour</b><span>20 foto</span></div>
-        <div class="gallery-item"><div class="gallery-placeholder">KEGIATAN</div><b>Kegiatan Sekolah</b><span>16 foto</span></div>
-        <div class="gallery-item"><div class="gallery-placeholder">RANDOM</div><b>Random Moments</b><span>8 foto</span></div>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">DOKUMENTASI KELAS</p>
+          <h2>Galeri & Dokumentasi Multi-Foto</h2>
+          <p class="gallery-summary-text" id="gallerySummaryText">Kumpulan dokumentasi kegiatan XI-1 MIPA Teknik dengan album multi-foto</p>
+        </div>
+        <div class="gallery-toolbar">
+          <button type="button" class="btn btn-sm primary" id="btnOpenAddDoc">+ Tambah Dokumentasi</button>
+        </div>
+      </div>
+
+      <!-- Container Kumpulan Kartu Dokumentasi -->
+      <div class="doc-list" id="docList">
+        <!-- Rendered dynamically by script.js -->
       </div>
     </section>
   </main>
 
   <footer><p>XI-1 MIPA Teknik · Made for our class.</p></footer>
-  <script src="script.js?v=2"></script>
+
+  <!-- ==================== MODAL KAS ==================== -->
+  <div class="modal-backdrop" id="kasModal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="kasModalTitle">Tambah Kas</h3>
+        <button type="button" class="modal-close-btn" id="closeKasModal" aria-label="Tutup">&times;</button>
+      </div>
+      <form id="kasForm" class="modal-form">
+        <input type="hidden" id="kasType" value="income">
+        <div class="form-field">
+          <label for="kasAmount">Jumlah Uang (Rp)</label>
+          <input type="number" id="kasAmount" placeholder="Contoh: 50000" min="1000" step="500" required>
+        </div>
+        <div class="form-field">
+          <label for="kasDesc">Keterangan</label>
+          <input type="text" id="kasDesc" placeholder="Contoh: Iuran kas minggu ke-3 / Beli spidol" required maxlength="60">
+        </div>
+        <div class="form-field">
+          <label for="kasDate">Tanggal (opsional)</label>
+          <input type="text" id="kasDate" placeholder="Contoh: 22 Sep">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn secondary" id="cancelKasModal">Batal</button>
+          <button type="submit" class="btn primary" id="saveKasBtn">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL TAMBAH DOKUMENTASI ==================== -->
+  <div class="modal-backdrop" id="docModal" aria-hidden="true">
+    <div class="modal-card modal-card-wide">
+      <div class="modal-head">
+        <div>
+          <h3>Tambah Dokumentasi Baru</h3>
+          <p class="modal-subtitle">Buat album kegiatan baru dan unggah banyak foto sekaligus</p>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeDocModal" aria-label="Tutup">&times;</button>
+      </div>
+      <form id="docForm" class="modal-form">
+        <div class="form-field">
+          <label for="docTitle">Judul Dokumentasi <span class="required">*</span></label>
+          <input type="text" id="docTitle" placeholder="Contoh: Dokumentasi MPLS 2026" required maxlength="50">
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="docCategory">Kategori / Label Kegiatan</label>
+            <select id="docCategory">
+              <option value="KEGIATAN">Kegiatan Sekolah</option>
+              <option value="MPLS">MPLS & Makrab</option>
+              <option value="CLASSMEETING">Class Meeting</option>
+              <option value="STUDY TOUR">Study Tour & Kunjungan</option>
+              <option value="DIESNATALIS">Diesnatalis & Pensi</option>
+              <option value="PRAKTIKUM">Praktikum Lab</option>
+              <option value="RANDOM">Random Moments</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="docDate">Tanggal / Keterangan Waktu</label>
+            <input type="text" id="docDate" placeholder="Contoh: 18 - 20 Juli 2026" maxlength="30">
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="docDesc">Keterangan / Deskripsi Kegiatan</label>
+          <textarea id="docDesc" rows="2" placeholder="Contoh: Rangkaian keseruan kegiatan MPLS siswa XI-1 MIPA Teknik." maxlength="200"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="docFilesInput">Pilih Banyak Foto dari Perangkat <span class="required">*</span></label>
+          <input type="file" id="docFilesInput" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple required>
+          <small class="form-hint">Pilih banyak foto sekaligus (bisa 10, 15, 20+ foto). Foto otomatis dioptimalkan agar ringan dan cepat.</small>
+          <div id="docErrorMsg" class="form-error-msg" style="display: none;"></div>
+        </div>
+
+        <!-- Preview Daftar Foto Terpilih -->
+        <div id="docFilesPreviewSection" style="display: none;">
+          <div class="preview-section-header">
+            <b id="docFilesCountLabel">0 foto dipilih</b>
+            <span class="preview-section-tip">Klik tanda &times; untuk membatalkan foto tertentu</span>
+          </div>
+          <div class="doc-upload-preview-grid" id="docFilesPreviewGrid"></div>
+        </div>
+
+        <div id="docProcessStatus" class="upload-processing-bar" style="display: none;">
+          <div class="spinner-small"></div>
+          <span id="docProcessStatusText">Mengompresi dan menyimpan foto...</span>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn secondary" id="cancelDocModal">Batal</button>
+          <button type="submit" class="btn primary" id="saveDocBtn">Simpan Dokumentasi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL TAMBAH FOTO KE DOKUMENTASI ==================== -->
+  <div class="modal-backdrop" id="appendPhotoModal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h3>Tambah Foto Tambahan</h3>
+          <p class="modal-subtitle" id="appendModalSubtitle">Tambahkan foto ke dokumentasi</p>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeAppendModal" aria-label="Tutup">&times;</button>
+      </div>
+      <form id="appendForm" class="modal-form">
+        <input type="hidden" id="appendDocId" value="">
+        <div class="form-field">
+          <label for="appendFilesInput">Pilih Foto Tambahan (Bisa Banyak Foto) <span class="required">*</span></label>
+          <input type="file" id="appendFilesInput" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple required>
+          <small class="form-hint">Foto baru akan langsung digabungkan ke dalam dokumentasi ini.</small>
+          <div id="appendErrorMsg" class="form-error-msg" style="display: none;"></div>
+        </div>
+
+        <!-- Preview Foto Baru Terpilih -->
+        <div id="appendPreviewSection" style="display: none;">
+          <div class="preview-section-header">
+            <b id="appendCountLabel">0 foto tambahan dipilih</b>
+          </div>
+          <div class="doc-upload-preview-grid" id="appendPreviewGrid"></div>
+        </div>
+
+        <div id="appendProcessStatus" class="upload-processing-bar" style="display: none;">
+          <div class="spinner-small"></div>
+          <span id="appendProcessStatusText">Menambahkan foto ke dokumentasi...</span>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn secondary" id="cancelAppendModal">Batal</button>
+          <button type="submit" class="btn primary" id="saveAppendBtn">Tambahkan Foto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL LIGHTBOX GALERI ==================== -->
+  <div class="modal-backdrop lightbox-backdrop" id="lightboxModal" aria-hidden="true">
+    <div class="lightbox-container">
+      <button type="button" class="lightbox-close" id="closeLightbox" aria-label="Tutup Lightbox">&times;</button>
+      <button type="button" class="lightbox-nav-btn prev" id="prevLightbox" aria-label="Foto Sebelumnya">&#8249;</button>
+      <div class="lightbox-content">
+        <div id="lightboxMedia" class="lightbox-media"></div>
+        <div class="lightbox-caption">
+          <div>
+            <b id="lightboxTitle">Judul Dokumentasi</b>
+            <span id="lightboxSubtitle">Keterangan foto</span>
+          </div>
+          <div class="lightbox-meta-right">
+            <span id="lightboxIndex" class="lightbox-counter">1 / 1</span>
+          </div>
+        </div>
+        <!-- Scrollable Mini Thumbnails -->
+        <div class="lightbox-thumbs-container" id="lightboxThumbsContainer">
+          <div class="lightbox-thumbs-track" id="lightboxThumbsTrack"></div>
+        </div>
+      </div>
+      <button type="button" class="lightbox-nav-btn next" id="nextLightbox" aria-label="Foto Berikutnya">&#8250;</button>
+    </div>
+  </div>
+
+  <script src="script.js?v=20260922v4"></script>
 </body>
 </html>
