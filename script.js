@@ -29,6 +29,32 @@ payments.innerHTML = students.map((name, i) => `
   </div>
 `).join("");
 
+const tasks = [
+  {subject:"Matematika", title:"Latihan halaman 45", deadline:"Jumat", status:"pending"},
+  {subject:"Fisika", title:"Mengerjakan soal bab 2", deadline:"Senin depan", status:"pending"},
+  {subject:"Bahasa Indonesia", title:"Membuat rangkuman", deadline:"Selesai", status:"done"}
+];
+
+const taskList = document.getElementById("taskList");
+function renderTasks(filter = "all") {
+  const filtered = tasks.filter(t => filter === "all" || t.status === filter);
+  taskList.innerHTML = filtered.map(t => `
+    <article class="task">
+      <div><b>${t.title}</b><br><small>${t.subject} · Deadline: ${t.deadline}</small></div>
+      <span class="status ${t.status === "done" ? "done" : ""}">${t.status === "done" ? "Selesai" : "Belum selesai"}</span>
+    </article>
+  `).join("");
+}
+renderTasks();
+
+document.querySelectorAll(".filter").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach(x => x.classList.remove("active"));
+    btn.classList.add("active");
+    renderTasks(btn.dataset.filter);
+  });
+});
+
 document.querySelectorAll(".done-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     btn.classList.toggle("done");
