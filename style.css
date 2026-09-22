@@ -1,20 +1,1373 @@
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Arial,Helvetica,sans-serif;background:#f7f9fc;color:#172033;line-height:1.6}.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px 6%;background:#fff;border-bottom:1px solid #e7ebf2}.brand{display:flex;align-items:center;gap:10px}.brand-mark{width:38px;height:38px;border-radius:9px;background:#10264d;color:#fff;display:grid;place-items:center;font-weight:800}.brand span{display:block;color:#7a8496;font-size:11px}.topbar nav{display:flex;align-items:center;gap:20px}.topbar nav a{color:#58657a;text-decoration:none;font-size:14px}.topbar nav a:hover,.topbar nav a.active{color:#10264d;font-weight:700}.theme-btn,.menu-toggle{border:0;background:transparent;cursor:pointer;font-size:20px;color:#10264d}.menu-toggle{display:none}.page{max-width:1120px;margin:auto;padding:70px 6%}.hero-section{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;min-height:600px}.eyebrow{font-size:11px;letter-spacing:2px;color:#2d70c9;font-weight:800;margin-bottom:7px}.hero-copy h1{font-size:clamp(42px,6vw,72px);line-height:1.02;color:#10264d;margin-bottom:18px}.tagline{font-size:18px;color:#68758a;max-width:500px}.hero-actions{display:flex;gap:10px;margin-top:28px}.btn{padding:11px 17px;border-radius:8px;text-decoration:none;font-size:14px;border:1px solid #d8deea}.btn.primary{background:#10264d;color:#fff;border-color:#10264d}.btn.secondary{background:#fff;color:#10264d}.hero-photo{height:380px}{height:.phovto-placeholder100%;border-radius:16px;background:linear-gradient(135deg,#dfe8f6,#eef3f9);display:flex;flex-direction:column;justify-content:center;align-items:center;color:#10264d}.photo-placeholder span{font-size:28px;font-weight:800}.photo-placeholder small{color:#6e7b8e}.quick-info{max-width:1000px;margin:0 auto;padding:0 6% 60px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#dfe5ee}.quick-info div{background:#fff;padding:22px}.quick-info strong,.quick-info span{display:block}.quick-info strong{font-size:24px;color:#10264d}.quick-info span{font-size:12px;color:#778398}.section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px}.section-heading h2{font-size:32px;color:#10264d}.muted{color:#7b8798;font-size:13px}.info-grid,.today-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.info-item,.simple-box{background:#fff;border:1px solid #e5e9f0;border-radius:10px;padding:20px;display:flex;gap:13px}.info-item p,.simple-box p{color:#778398;font-size:13px}.dot{width:9px;height:9px;border-radius:50%;background:#9ba8b9;margin-top:7px;flex:none}.dot.blue{background:#2d70c9}.simple-box{display:block}.simple-box h3{margin-bottom:10px;color:#26334a}.search{width:100%;padding:13px 15px;border:1px solid #d9e0ea;border-radius:9px;margin-bottom:22px;background:#fff;outline:none}.member-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.member-card{background:#fff;border:1px solid #e3e8f0;border-radius:10px;padding:14px;transition:.2s}.member-card:hover{transform:translateY(-2px);box-shadow:0 7px 20px #10264d12}.avatar{width:54px;height:54px;border-radius:50%;background:#dfe8f6;display:grid;place-items:center;color:#10264d;font-weight:800;margin-bottom:10px}.member-card b{display:block}.member-card small{color:#7b8798}.structure{max-width:720px;margin:auto}.role{background:#fff;border:1px solid #e1e6ee;border-radius:10px;padding:18px;text-align:center;min-width:220px}.role span{display:block;font-size:11px;color:#78859a;text-transform:uppercase;letter-spacing:1px}.role b{color:#10264d}.main-role{margin:0 auto 18px;border-top:3px solid #2d70c9}.structure-row{display:flex;justify-content:center;gap:18px;margin-bottom:18px}.money-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:25px}.money-grid div{background:#fff;border:1px solid #e2e7ef;border-radius:10px;padding:20px}.money-grid span{display:block;color:#7b8798;font-size:12px}.money-grid strong{font-size:25px;color:#10264d}.table-wrap{overflow-x:auto;background:#fff;border:1px solid #e2e7ef;border-radius:10px}.table-wrap table{width:100%;border-collapse:collapse;min-width:600px}.table-wrap th,.table-wrap td{text-align:left;padding:13px 15px;border-bottom:1px solid #edf0f5;font-size:13px}.table-wrap th{background:#f6f8fb;color:#667389}.income{color:#19734a}.expense{color:#b54a4a}.subheading{margin:30px 0 12px}.payment-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.payment{background:#fff;border:1px solid #e2e7ef;border-radius:8px;padding:10px;font-size:12px}.payment.paid{border-left:3px solid #2d70c9}.payment.unpaid{border-left:3px solid #d6dbe3}.filter-row{display:flex;gap:8px;margin-bottom:18px}.filter{padding:8px 13px;border:1px solid #d9e0ea;background:#fff;border-radius:7px;cursor:pointer}.filter.active{background:#10264d;color:#fff}.task-list{display:grid;gap:10px}.task{background:#fff;border:1px solid #e1e6ee;border-radius:10px;padding:17px;display:flex;justify-content:space-between;align-items:center}.task small{color:#7b8798}.status{font-size:12px;padding:5px 9px;border-radius:20px;background:#eef2f7}.status.done{background:#e5f5ec;color:#19734a}.duty-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.duty-grid>div{background:#fff;border:1px solid #e2e7ef;border-radius:10px;padding:18px}.duty-grid p{font-size:13px;color:#718095;margin:7px 0 12px}.done-btn{border:1px solid #d6deea;background:#fff;border-radius:7px;padding:7px 10px;cursor:pointer}.done-btn.done{background:#e5f5ec;color:#19734a}.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.gallery-item{background:#fff;border:1px solid #e2e7ef;border-radius:10px;overflow:hidden}.gallery-placeholder{height:160px;background:#dfe8f6;display:grid;place-items:center;color:#10264d;font-weight:800;font-size:14px}.gallery-item b,.gallery-item span{display:block;padding:0 12px}.gallery-item b{padding-top:12px}.gallery-item span{padding-bottom:12px;color:#7b8798;font-size:12px}footer{text-align:center;padding:35px;color:#7b8798;font-size:12px;border-top:1px solid #e5e9f0}.dark{background:#111827;color:#e5e7eb}.dark .topbar,.dark .info-item,.dark .simple-box,.dark .member-card,.dark .role,.dark .money-grid div,.dark .table-wrap,.dark .payment,.dark .task,.dark .duty-grid>div,.dark .gallery-item,.dark .quick-info div,.dark .search,.dark .filter,.dark .done-btn{background:#182235;color:#e5e7eb;border-color:#2b374b}.dark h1,.dark h2,.dark h3,.dark .brand strong,.dark .money-grid strong,.dark .role b{color:#fff}.dark .tagline,.dark .muted,.dark .info-item p,.dark .member-card small,.dark .duty-grid p{color:#9ba8b9}.dark .hero-photo{background:#1a263b}.dark .quick-info{background:#2b374b}.dark .table-wrap th{background:#202d41}.dark .topbar nav a{color:#b4becd}.dark .topbar nav a.active{color:#fff}@media(max-width:850px){.topbar nav{display:none;position:absolute;top:67px;left:0;right:0;background:#fff;padding:15px 6%;border-bottom:1px solid #e5e9f0;flex-direction:column;align-items:flex-start}.topbar nav.open{display:flex}.menu-toggle{display:block}.hero-section{grid-template-columns:1fr;padding-top:50px}.hero-photo{height:260px}.member-grid{grid-template-columns:repeat(3,1fr)}.gallery-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.page{padding:48px 5%}.quick-info{grid-template-columns:repeat(2,1fr);padding:0 5% 40px}.info-grid,.today-grid,.duty-grid{grid-template-columns:1fr}.member-grid{grid-template-columns:repeat(2,1fr)}.payment-grid{grid-template-columns:repeat(2,1fr)}.money-grid{grid-template-columns:1fr}.structure-row{flex-direction:column;align-items:center}.role{width:100%}.gallery-grid{grid-template-columns:1fr}.hero-copy h1{font-size:44px}.hero-actions{flex-wrap:wrap}}
+/* ==========================================================================
+   XI-1 MIPA TEKNIK - RESPONSIVE STYLESHEET
+   Supports Desktop (1024px-1920px+), Tablet (768px-1023px),
+   Mobile (390px-430px), and Small Mobile (320px-375px)
+   ========================================================================== */
 
-.single-today{grid-template-columns:1fr;max-width:560px}
-
-
-.hero-photo .photo-placeholder {
-  width: 320px !important;
-  height: 320px !important;
-  overflow: hidden;
-  border-radius: 20px;
-  margin: 0 auto;
-  transform: translate(-75px, 30px);
+/* --------------------------------------------------------------------------
+   1. RESET & BASE VARIABLES
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.hero-photo .photo-placeholder img {
-  width: 100% !important;
-  height: 100% !important;
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #f7f9fc;
+  color: #172033;
+  line-height: 1.6;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button, input {
+  font-family: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   2. LAYOUT CONTAINERS & TYPOGRAPHY
+   -------------------------------------------------------------------------- */
+.page {
+  width: 100%;
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 64px 24px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #2d70c9;
+  font-weight: 800;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.section-heading h2 {
+  font-size: 30px;
+  color: #10264d;
+  line-height: 1.2;
+}
+
+.muted {
+  color: #7b8798;
+  font-size: 13px;
+}
+
+.subheading {
+  font-size: 18px;
+  color: #10264d;
+  margin: 32px 0 14px;
+}
+
+/* --------------------------------------------------------------------------
+   3. TOPBAR / NAVBAR
+   -------------------------------------------------------------------------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #ffffff;
+  border-bottom: 1px solid #e7ebf2;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(16, 38, 77, 0.04);
+}
+
+.topbar-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  background: #10264d;
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.brand strong {
+  display: block;
+  font-size: 15px;
+  color: #10264d;
+  line-height: 1.2;
+}
+
+.brand span {
+  display: block;
+  color: #7a8496;
+  font-size: 11px;
+}
+
+.topbar nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.topbar nav a {
+  color: #58657a;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 4px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.topbar nav a:hover,
+.topbar nav a.active {
+  color: #10264d;
+  font-weight: 700;
+  border-bottom-color: #2d70c9;
+}
+
+.theme-btn,
+.menu-toggle {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: #10264d;
+}
+
+.theme-btn {
+  font-size: 18px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #e2e7ef;
+  background: #f7f9fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+  transition: background 0.2s;
+}
+
+.theme-btn:hover {
+  background: #edf1f8;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid #d9e0ea;
+  background: #f7f9fc;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   4. HERO SECTION
+   -------------------------------------------------------------------------- */
+.hero-section {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 48px;
+  align-items: center;
+  min-height: 480px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.hero-copy h1 {
+  font-size: clamp(38px, 5vw, 64px);
+  line-height: 1.08;
+  color: #10264d;
+  margin-bottom: 18px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  font-size: 17px;
+  color: #68758a;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d8deea;
+  transition: all 0.2s ease;
+  min-height: 44px;
+}
+
+.btn.primary {
+  background: #10264d;
+  color: #ffffff;
+  border-color: #10264d;
+}
+
+.btn.primary:hover {
+  background: #193668;
+}
+
+.btn.secondary {
+  background: #ffffff;
+  color: #10264d;
+}
+
+.btn.secondary:hover {
+  background: #f0f4fa;
+}
+
+.hero-photo {
+  width: 100%;
+  height: 380px;
+}
+
+.photo-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #dfe8f6, #eef3f9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d8e2ef;
+  box-shadow: 0 8px 24px rgba(16, 38, 77, 0.08);
+}
+
+.photo-placeholder img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* --------------------------------------------------------------------------
+   5. QUICK INFO (INFORMASI KELAS)
+   -------------------------------------------------------------------------- */
+.quick-info {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px 50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.quick-info div {
+  background: #ffffff;
+  border: 1px solid #e2e7ef;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(16, 38, 77, 0.03);
+  transition: transform 0.2s ease;
+}
+
+.quick-info div:hover {
+  transform: translateY(-2px);
+}
+
+.quick-info strong {
+  display: block;
+  font-size: 22px;
+  color: #10264d;
+  line-height: 1.2;
+}
+
+.quick-info span {
+  display: block;
+  font-size: 12px;
+  color: #778398;
+  margin-top: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   6. INFO TERBARU & HARI INI
+   -------------------------------------------------------------------------- */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.info-item {
+  background: #ffffff;
+  border: 1px solid #e5e9f0;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  box-shadow: 0 2px 6px rgba(16, 38, 77, 0.03);
+}
+
+.info-item b {
+  display: block;
+  color: #10264d;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.info-item p {
+  color: #68758a;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #2d70c9;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.today-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+}
+
+.single-today {
+  max-width: 580px;
+}
+
+.simple-box {
+  background: #ffffff;
+  border: 1px solid #e5e9f0;
+  border-radius: 10px;
+  padding: 22px;
+  box-shadow: 0 2px 6px rgba(16, 38, 77, 0.03);
+  width: 100%;
+}
+
+.simple-box h3 {
+  margin-bottom: 6px;
+  color: #10264d;
+  font-size: 17px;
+}
+
+.simple-box p {
+  color: #26334a;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.simple-box .muted {
+  font-weight: normal;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   7. ANGGOTA KELAS
+   -------------------------------------------------------------------------- */
+.search {
+  width: 100%;
+  max-width: 100%;
+  padding: 13px 16px;
+  border: 1px solid #d9e0ea;
+  border-radius: 9px;
+  margin-bottom: 22px;
+  background: #ffffff;
+  outline: none;
+  font-size: 14px;
+  color: #172033;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search:focus {
+  border-color: #2d70c9;
+  box-shadow: 0 0 0 3px rgba(45, 112, 201, 0.12);
+}
+
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.member-card {
+  background: #ffffff;
+  border: 1px solid #e3e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 0;
+  box-shadow: 0 2px 6px rgba(16, 38, 77, 0.03);
+}
+
+.member-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(16, 38, 77, 0.08);
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #dfe8f6;
+  display: grid;
+  place-items: center;
+  color: #10264d;
+  font-weight: 800;
+  font-size: 14px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.member-card b {
+  display: block;
+  font-size: 14px;
+  color: #10264d;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+.member-card small {
+  display: block;
+  color: #7b8798;
+  font-size: 12px;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* --------------------------------------------------------------------------
+   8. STRUKTUR KELAS
+   -------------------------------------------------------------------------- */
+.structure {
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.role {
+  background: #ffffff;
+  border: 1px solid #e1e6ee;
+  border-radius: 10px;
+  padding: 18px;
+  text-align: center;
+  min-width: 200px;
+  box-shadow: 0 2px 6px rgba(16, 38, 77, 0.03);
+}
+
+.role span {
+  display: block;
+  font-size: 11px;
+  color: #78859a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.role b {
+  color: #10264d;
+  font-size: 15px;
+  display: block;
+  overflow-wrap: break-word;
+}
+
+.main-role {
+  margin: 0 auto 18px;
+  border-top: 3px solid #2d70c9;
+  max-width: 360px;
+}
+
+.structure-row {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.structure-row .role {
+  flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   9. KAS KELAS & STATUS PEMBAYARAN
+   -------------------------------------------------------------------------- */
+.money-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.money-grid div {
+  background: #ffffff;
+  border: 1px solid #e2e7ef;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(16, 38, 77, 0.03);
+}
+
+.money-grid span {
+  display: block;
+  color: #7b8798;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.money-grid strong {
+  display: block;
+  font-size: 24px;
+  color: #10264d;
+  margin-top: 4px;
+  line-height: 1.2;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #ffffff;
+  border: 1px solid #e2e7ef;
+  border-radius: 10px;
+  margin-bottom: 28px;
+  width: 100%;
+  max-width: 100%;
+  box-shadow: 0 2px 6px rgba(16, 38, 77, 0.03);
+}
+
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 480px;
+}
+
+.table-wrap th,
+.table-wrap td {
+  text-align: left;
+  padding: 14px 16px;
+  border-bottom: 1px solid #edf0f5;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.table-wrap th {
+  background: #f6f8fb;
+  color: #667389;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table-wrap tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.income {
+  color: #19734a;
+  font-weight: 700;
+}
+
+.expense {
+  color: #b54a4a;
+  font-weight: 700;
+}
+
+.payment-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.payment {
+  background: #ffffff;
+  border: 1px solid #e2e7ef;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  box-shadow: 0 1px 3px rgba(16, 38, 77, 0.02);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.payment.paid {
+  border-left: 4px solid #2d70c9;
+  color: #10264d;
+  font-weight: 500;
+}
+
+.payment.unpaid {
+  border-left: 4px solid #d6dbe3;
+  color: #78859a;
+}
+
+/* --------------------------------------------------------------------------
+   10. JADWAL PELAJARAN & PIKET
+   -------------------------------------------------------------------------- */
+.schedule th,
+.schedule td {
+  text-align: center;
+}
+
+.schedule th:first-child,
+.schedule td:first-child {
+  text-align: left;
+  font-weight: 600;
+}
+
+.duty-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.duty-grid > div {
+  background: #ffffff;
+  border: 1px solid #e2e7ef;
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 2px 6px rgba(16, 38, 77, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.duty-grid b {
+  display: block;
+  font-size: 15px;
+  color: #10264d;
+}
+
+.duty-grid p {
+  font-size: 13px;
+  color: #68758a;
+  margin: 8px 0 14px;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.done-btn {
+  border: 1px solid #d6deea;
+  background: #f7f9fc;
+  border-radius: 7px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: #10264d;
+  transition: all 0.2s ease;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.done-btn:hover {
+  background: #edf1f8;
+}
+
+.done-btn.done {
+  background: #e5f5ec;
+  color: #19734a;
+  border-color: #a8dfc0;
+}
+
+/* --------------------------------------------------------------------------
+   11. GALERI
+   -------------------------------------------------------------------------- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.gallery-item {
+  background: #ffffff;
+  border: 1px solid #e2e7ef;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(16, 38, 77, 0.03);
+  transition: transform 0.2s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-2px);
+}
+
+.gallery-placeholder {
+  height: 160px;
+  background: linear-gradient(135deg, #dfe8f6, #ecf2fa);
+  display: grid;
+  place-items: center;
+  color: #10264d;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.gallery-item b {
+  display: block;
+  padding: 12px 14px 4px;
+  font-size: 14px;
+  color: #10264d;
+}
+
+.gallery-item span {
+  display: block;
+  padding: 0 14px 14px;
+  color: #7b8798;
+  font-size: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   12. FOOTER
+   -------------------------------------------------------------------------- */
+footer {
+  text-align: center;
+  padding: 40px 24px;
+  color: #7b8798;
+  font-size: 13px;
+  border-top: 1px solid #e5e9f0;
+  background: #ffffff;
+  margin-top: 40px;
+}
+
+/* --------------------------------------------------------------------------
+   13. DARK MODE (THEME TOGGLE)
+   -------------------------------------------------------------------------- */
+.dark {
+  background: #111827;
+  color: #e5e7eb;
+}
+
+.dark .topbar,
+.dark footer {
+  background: #182235;
+  border-color: #2b374b;
+}
+
+.dark .info-item,
+.dark .simple-box,
+.dark .member-card,
+.dark .role,
+.dark .money-grid div,
+.dark .table-wrap,
+.dark .payment,
+.dark .duty-grid > div,
+.dark .gallery-item,
+.dark .quick-info div,
+.dark .search,
+.dark .theme-btn,
+.dark .done-btn,
+.dark .btn.secondary {
+  background: #182235;
+  color: #e5e7eb;
+  border-color: #2b374b;
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark .subheading,
+.dark .brand strong,
+.dark .money-grid strong,
+.dark .role b,
+.dark .info-item b,
+.dark .member-card b,
+.dark .simple-box h3,
+.dark .duty-grid b,
+.dark .gallery-item b,
+.dark .quick-info strong,
+.dark .menu-toggle,
+.dark .theme-btn {
+  color: #ffffff;
+}
+
+.dark .tagline,
+.dark .muted,
+.dark .info-item p,
+.dark .member-card small,
+.dark .duty-grid p,
+.dark .gallery-item span,
+.dark .quick-info span,
+.dark .brand span {
+  color: #9ba8b9;
+}
+
+.dark .simple-box p {
+  color: #e5e7eb;
+}
+
+.dark .photo-placeholder {
+  background: linear-gradient(135deg, #1c2a42, #182235);
+  border-color: #2b374b;
+}
+
+.dark .gallery-placeholder {
+  background: linear-gradient(135deg, #1e2c45, #182235);
+  color: #8bb2eb;
+}
+
+.dark .table-wrap th {
+  background: #202d41;
+  color: #9ba8b9;
+  border-bottom-color: #2b374b;
+}
+
+.dark .table-wrap td {
+  border-bottom-color: #202d41;
+}
+
+.dark .topbar nav a {
+  color: #b4becd;
+}
+
+.dark .topbar nav a:hover,
+.dark .topbar nav a.active {
+  color: #ffffff;
+  border-bottom-color: #4a94e8;
+}
+
+.dark .avatar {
+  background: #23344e;
+  color: #ffffff;
+}
+
+.dark .payment.paid {
+  border-left-color: #4a94e8;
+  color: #ffffff;
+}
+
+.dark .payment.unpaid {
+  border-left-color: #38465c;
+  color: #9ba8b9;
+}
+
+.dark .done-btn.done {
+  background: #173d2a;
+  color: #5ce698;
+  border-color: #256140;
+}
+
+/* ==========================================================================
+   14. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   A. LAPTOP / DESKTOP OPTIMIZATIONS (1024px - 1366px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .page {
+    padding: 54px 20px;
+  }
+
+  .quick-info {
+    padding: 0 20px 40px;
+  }
+
+  .hero-section {
+    gap: 36px;
+    min-height: 420px;
+  }
+
+  .member-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .payment-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   B. TABLET BREAKPOINT (max-width: 850px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 850px) {
+  .topbar-inner {
+    padding: 12px 18px;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .topbar nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    padding: 16px 20px 24px;
+    border-bottom: 2px solid #e5e9f0;
+    box-shadow: 0 16px 32px rgba(16, 38, 77, 0.12);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+
+  .topbar nav.open {
+    display: flex;
+    animation: navSlideDown 0.2s ease-out;
+  }
+
+  @keyframes navSlideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .topbar nav a {
+    padding: 12px 14px;
+    border-radius: 8px;
+    border-bottom: none;
+    font-size: 15px;
+    color: #3b4759;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .topbar nav a:hover,
+  .topbar nav a.active {
+    background: #f0f4fa;
+    color: #10264d;
+    border-bottom: none;
+  }
+
+  .theme-btn {
+    margin-top: 10px;
+    padding: 12px 14px;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+
+  .hero-section {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    min-height: auto;
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  .hero-copy {
+    text-align: center;
+  }
+
+  .tagline {
+    margin: 0 auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-photo {
+    height: 300px;
+  }
+
+  .quick-info {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .duty-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dark .topbar nav {
+    background: #182235;
+    border-bottom-color: #2b374b;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .dark .topbar nav a {
+    color: #b4becd;
+  }
+
+  .dark .topbar nav a:hover,
+  .dark .topbar nav a.active {
+    background: #202d41;
+    color: #ffffff;
+  }
+
+  .dark .menu-toggle {
+    background: #202d41;
+    border-color: #2b374b;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   C. SMARTPHONE BREAKPOINT - MAIN MOBILE MODE (max-width: 640px)
+   Enforces vertical / stacked single flow, zero horizontal overflow
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .page {
+    width: 100%;
+    padding: 40px 18px;
+  }
+
+  /* 1. Header mobile adjustments */
+  .brand strong {
+    font-size: 14px;
+  }
+
+  .brand span {
+    font-size: 10px;
+  }
+
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+
+  /* 2. Hero mobile adjustments */
+  .hero-section {
+    padding-top: 24px;
+    padding-bottom: 24px;
+    gap: 24px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(34px, 10vw, 48px);
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+
+  .tagline {
+    font-size: 15px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .hero-photo {
+    height: 230px;
+  }
+
+  /* 3. Section Informasi Kelas -> TURUN KE BAWAH (Vertikal) */
+  .quick-info {
+    width: 100%;
+    padding: 0 18px 36px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .quick-info div {
+    padding: 16px 18px;
+  }
+
+  .quick-info strong {
+    font-size: 20px;
+  }
+
+  /* 4. Section Info Terbaru -> Vertikal */
+  .section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+
+  .section-heading h2 {
+    font-size: 26px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .info-item {
+    padding: 16px;
+  }
+
+  /* 5. Section Hari Ini */
+  .today {
+    padding-top: 20px;
+    padding-bottom: 24px;
+  }
+
+  .single-today {
+    max-width: 100%;
+  }
+
+  .simple-box {
+    padding: 18px;
+  }
+
+  /* 6. Section Anggota Kelas */
+  #anggota {
+    padding-top: 24px;
+  }
+
+  .search {
+    padding: 12px 14px;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .member-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .member-card {
+    padding: 12px;
+  }
+
+  .avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .member-card b {
+    font-size: 13px;
+  }
+
+  .member-card small {
+    font-size: 11px;
+  }
+
+  /* 7. Section Struktur Kelas -> Vertikal */
+  .structure-row {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .role {
+    width: 100%;
+    min-width: 0;
+    padding: 15px;
+  }
+
+  .main-role {
+    margin-bottom: 10px;
+    max-width: 100%;
+  }
+
+  /* 8. Section Kas Kelas -> Vertikal & Scrollable Table */
+  .money-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .money-grid div {
+    padding: 16px 18px;
+  }
+
+  .money-grid strong {
+    font-size: 22px;
+  }
+
+  .table-wrap {
+    border-radius: 8px;
+  }
+
+  .table-wrap table {
+    min-width: 460px;
+  }
+
+  .table-wrap th,
+  .table-wrap td {
+    padding: 12px 14px;
+    font-size: 12px;
+  }
+
+  /* Status Pembayaran -> Tersusun ke bawah (1 kolom vertikal) */
+  .payment-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .payment {
+    padding: 12px 14px;
+    font-size: 13px;
+    min-height: 44px;
+  }
+
+  /* 9. Section Jadwal & Piket -> Vertikal */
+  .schedule {
+    min-width: 540px;
+  }
+
+  .duty-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .duty-grid > div {
+    padding: 16px;
+  }
+
+  .done-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  /* 10. Galeri -> Vertikal */
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .gallery-placeholder {
+    height: 150px;
+  }
+
+  footer {
+    padding: 30px 18px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   D. SMALL HP BREAKPOINT (max-width: 375px)
+   Ultra-small devices (iPhone SE, Galaxy A series, etc.)
+   -------------------------------------------------------------------------- */
+@media (max-width: 375px) {
+  .page {
+    padding: 32px 14px;
+  }
+
+  .quick-info {
+    padding: 0 14px 28px;
+  }
+
+  .hero-copy h1 {
+    font-size: 30px;
+  }
+
+  .hero-photo {
+    height: 200px;
+  }
+
+  .section-heading h2 {
+    font-size: 22px;
+  }
+
+  /* 1 column member cards for narrow screens to ensure no cut-off */
+  .member-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .member-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .avatar {
+    margin-bottom: 0;
+  }
+
+  .member-card b {
+    font-size: 14px;
+  }
+
+  .role b {
+    font-size: 14px;
+  }
+
+  .money-grid strong {
+    font-size: 20px;
+  }
+
+  .btn {
+    font-size: 13px;
+  }
 }
