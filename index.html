@@ -20,29 +20,30 @@
   <meta property="og:description" content="Website resmi XI-1 MIPA Teknik Smanetra tahun ajaran 2026/2027.">
   <meta property="og:type" content="website">
 
-  <link rel="stylesheet" href="style.css">
-</head>
+  <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">
-      <div class="brand-mark">XI</div>
-      <div>
-        <strong>XI-1 MIPA Teknik</strong>
-        <span>XI-1 MIPA Teknik</span>
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">XI</div>
+        <div>
+          <strong>XI-1 MIPA Teknik</strong>
+          <span>XI-1 MIPA Teknik</span>
+        </div>
       </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Buka menu" aria-expanded="false">☰</button>
+      <nav id="nav">
+        <a href="#home" class="active">Home</a>
+        <a href="#anggota">Anggota</a>
+        <a href="#struktur">Struktur</a>
+        <a href="#kas">Kas</a>
+        <a href="#jadwal">Jadwal</a>
+        <a href="#piket">Piket</a>
+        <a href="#galeri">Galeri</a>
+        <button id="themeToggle" class="theme-btn" title="Ganti tema">☾</button>
+      </nav>
     </div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Buka menu">☰</button>
-    <nav id="nav">
-      <a href="#home" class="active">Home</a>
-      <a href="#anggota">Anggota</a>
-      <a href="#struktur">Struktur</a>
-      <a href="#kas">Kas</a>
-      <a href="#jadwal">Jadwal</a>
-      <a href="#piket">Piket</a>
-      <a href="#galeri">Galeri</a>
-      <button id="themeToggle" class="theme-btn" title="Ganti tema">☾</button>
-    </nav>
   </header>
 
   <main>
@@ -57,16 +58,17 @@
         </div>
       </div>
       <div class="hero-photo">
-    <div class="photo-placeholder">
-        <img src="IMG_6432.jpeg" alt="Foto Kelas">
-    </div>
-</div>
+        <div class="photo-placeholder">
+          <img src="IMG_6432.jpeg" alt="Foto Kelas">
+        </div>
+      </div>
+    </section>
 
     <section class="quick-info">
       <div><strong>34</strong><span>Anggota</span></div>
       <div><strong>XI-1</strong><span>Kelas</span></div>
       <div><strong>2026/2027</strong><span>Tahun Ajaran</span></div>
-      <div><strong>I'in Nur Cahayu, S.T</strong><span> KelaWalis</span></div>
+      <div><strong>I'in Nur Cahayu, S.T</strong><span>Wali Kelas</span></div>
     </section>
 
     <section class="page" id="info">
@@ -138,7 +140,8 @@
         </tbody></table>
       </div>
     </section>
-<section class="page" id="piket">
+
+    <section class="page" id="piket">
       <div class="section-heading"><div><p class="eyebrow">DUTY</p><h2>Jadwal Piket</h2></div></div>
       <div class="duty-grid">
         <div><b>Senin</b><p>Andi, Bima, Citra, Dimas, Eka, Fajar</p><button class="done-btn">Tandai selesai</button></div>
@@ -161,6 +164,6 @@
   </main>
 
   <footer><p>XI-1 MIPA Teknik · Made for our class.</p></footer>
-  <script src="script.js"></script>
+  <script src="script.js?v=2"></script>
 </body>
 </html>
