@@ -1628,7 +1628,8 @@ button, input {
 
 .form-field input[type="text"],
 .form-field input[type="number"],
-.form-field input[type="file"] {
+.form-field input[type="file"],
+.form-field input[type="password"] {
   padding: 11px 14px;
   border: 1px solid #d6deea;
   border-radius: 8px;
@@ -1637,6 +1638,39 @@ button, input {
   color: #172033;
   outline: none;
   width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   ADMIN LOGIN / ADMIN MODE UI
+   -------------------------------------------------------------------------- */
+.admin-login-btn {
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  gap: 6px;
+}
+
+.admin-mode-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #0a7a3d;
+  background: #e6f7ec;
+  border: 1px solid #b7e8c8;
+  padding: 8px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.payment.readonly-el {
+  cursor: default;
+}
+
+.payment.readonly-el:hover {
+  transform: none;
+  box-shadow: 0 1px 3px rgba(16, 38, 77, 0.02);
 }
 
 .form-field input:focus {
@@ -2056,10 +2090,17 @@ footer {
 .dark .form-field input[type="text"],
 .dark .form-field input[type="number"],
 .dark .form-field input[type="file"],
+.dark .form-field input[type="password"],
 .dark .piket-add-form input {
   background: #1e2c45;
   color: #f1f5f9;
   border-color: #334460;
+}
+
+.dark .admin-mode-badge {
+  color: #6ee7a0;
+  background: rgba(16, 185, 96, 0.12);
+  border-color: rgba(16, 185, 96, 0.3);
 }
 
 .dark .piket-today-item {
@@ -2379,6 +2420,14 @@ footer {
     gap: 8px;
     font-size: 14px;
     min-height: 44px;
+  }
+
+  .admin-mode-badge {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: center;
+    padding: 12px 14px;
+    box-sizing: border-box;
   }
 
   .hero-section {
@@ -2843,4 +2892,103 @@ footer {
   .btn {
     font-size: 13px;
   }
+}
+
+
+/* ===== Admin / read-only access layer ===== */
+.admin-login-button {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9998;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font: inherit;
+}
+.admin-toolbar {
+  position: fixed;
+  top: 14px;
+  right: 18px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(20,20,20,.92);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+}
+.admin-toolbar button,
+.admin-login-button,
+.admin-primary,
+.admin-secondary {
+  cursor: pointer;
+}
+.admin-modal[aria-hidden="true"] { display: none; }
+.admin-modal[aria-hidden="false"] {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0,0,0,.58);
+}
+.admin-modal-card {
+  position: relative;
+  width: min(420px, 100%);
+  padding: 24px;
+  border-radius: 18px;
+  background: #fff;
+  color: #111;
+  box-shadow: 0 20px 60px rgba(0,0,0,.28);
+}
+.admin-modal-card h2 { margin-top: 0; }
+.admin-modal-card label {
+  display: grid;
+  gap: 6px;
+  margin: 12px 0;
+}
+.admin-modal-card input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font: inherit;
+}
+.admin-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: 0;
+  background: transparent;
+  font-size: 26px;
+  cursor: pointer;
+}
+.admin-primary,
+.admin-secondary {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font: inherit;
+}
+.admin-error { color: #b00020; }
+.admin-muted { opacity: .7; }
+
+body.admin-readonly [data-admin-only],
+body.admin-readonly .admin-only,
+body.admin-readonly button[data-action="edit"],
+body.admin-readonly button[data-action="delete"],
+body.admin-readonly button[data-action="add"],
+body.admin-readonly button[data-action="remove"] {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  .admin-login-button { right: 12px; bottom: 12px; }
+  .admin-toolbar { top: 10px; right: 10px; }
 }
