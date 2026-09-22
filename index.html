@@ -20,7 +20,7 @@
   <meta property="og:description" content="Website resmi XI-1 MIPA Teknik Smanetra tahun ajaran 2026/2027.">
   <meta property="og:type" content="website">
 
-  <link rel="stylesheet" href="style.css?v=20260922v4">
+  <link rel="stylesheet" href="style.css?v=20260922v5">
 </head>
 <body>
   <header class="topbar">
@@ -42,6 +42,9 @@
         <a href="#piket">Piket</a>
         <a href="#galeri">Galeri</a>
         <button id="themeToggle" class="theme-btn" title="Ganti tema">☾</button>
+        <button type="button" id="btnAdminLogin" class="theme-btn admin-login-btn visitor-only-el" title="Masuk sebagai Admin">🔐 Admin Login</button>
+        <span id="adminModeBadge" class="admin-mode-badge admin-only-el" style="display: none;">🛡️ Admin Mode</span>
+        <button type="button" id="btnAdminLogout" class="theme-btn admin-only-el" style="display: none;" title="Keluar dari mode Admin">Logout</button>
       </nav>
     </div>
   </header>
@@ -92,8 +95,8 @@
               <p class="muted" id="piketCount">Kelompok 1</p>
             </div>
             <div class="piket-quick-actions">
-              <button type="button" class="btn-action-ghost" id="btnToggleAddPiket">+ Tambah Nama</button>
-              <button type="button" class="btn-action-ghost text-muted-btn" id="btnResetPiket" title="Reset ke nama default">Reset Piket</button>
+              <button type="button" class="btn-action-ghost admin-only-el" id="btnToggleAddPiket" style="display: none;">+ Tambah Nama</button>
+              <button type="button" class="btn-action-ghost text-muted-btn admin-only-el" id="btnResetPiket" style="display: none;" title="Reset ke nama default">Reset Piket</button>
             </div>
           </div>
           
@@ -107,7 +110,7 @@
             <!-- Rendered by JS -->
           </ul>
 
-          <div class="piket-footer-row">
+          <div class="piket-footer-row admin-only-el" style="display: none;">
             <button type="button" class="btn-link-danger" id="btnClearAllPiket">Hapus Semua</button>
           </div>
         </div>
@@ -139,8 +142,8 @@
       <div class="section-heading">
         <div><p class="eyebrow">CLASS FUND</p><h2>Kas Kelas</h2></div>
         <div class="kas-actions">
-          <button type="button" class="btn btn-sm btn-income" id="btnTambahKas">+ Tambah Kas</button>
-          <button type="button" class="btn btn-sm btn-expense" id="btnPengeluaran">− Pengeluaran</button>
+          <button type="button" class="btn btn-sm btn-income admin-only-el" id="btnTambahKas" style="display: none;">+ Tambah Kas</button>
+          <button type="button" class="btn btn-sm btn-expense admin-only-el" id="btnPengeluaran" style="display: none;">− Pengeluaran</button>
         </div>
       </div>
       <div class="money-grid">
@@ -167,7 +170,7 @@
         <h3 class="subheading">Status Pembayaran</h3>
         <div class="payment-controls">
           <span id="paymentSummary" class="muted">27 Lunas · 7 Belum</span>
-          <button type="button" class="btn-action-ghost text-muted-btn" id="btnResetPayment" title="Reset pembayaran ke status awal">Reset Status</button>
+          <button type="button" class="btn-action-ghost text-muted-btn admin-only-el" id="btnResetPayment" style="display: none;" title="Reset pembayaran ke status awal">Reset Status</button>
         </div>
       </div>
       <div id="paymentGrid" class="payment-grid"></div>
@@ -202,7 +205,7 @@
           <h2>Galeri & Dokumentasi Multi-Foto</h2>
           <p class="gallery-summary-text" id="gallerySummaryText">Kumpulan dokumentasi kegiatan XI-1 MIPA Teknik dengan album multi-foto</p>
         </div>
-        <div class="gallery-toolbar">
+        <div class="gallery-toolbar admin-only-el" style="display: none;">
           <button type="button" class="btn btn-sm primary" id="btnOpenAddDoc">+ Tambah Dokumentasi</button>
         </div>
       </div>
@@ -376,6 +379,63 @@
     </div>
   </div>
 
-  <script src="script.js?v=20260922v4"></script>
+  <!-- ==================== MODAL ADMIN LOGIN ==================== -->
+  <div class="modal-backdrop" id="adminLoginModal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h3>Admin Login</h3>
+          <p class="modal-subtitle">Masuk sebagai admin untuk mengelola kas, pembayaran, piket, dan galeri.</p>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeAdminLoginModal" aria-label="Tutup">&times;</button>
+      </div>
+      <form id="adminLoginForm" class="modal-form">
+        <div class="form-field">
+          <label for="adminUsernameInput">Username / Email</label>
+          <input type="text" id="adminUsernameInput" placeholder="Masukkan username admin" required autocomplete="username" maxlength="60">
+        </div>
+        <div class="form-field">
+          <label for="adminPasswordInput">Password</label>
+          <input type="password" id="adminPasswordInput" placeholder="Masukkan password admin" required autocomplete="current-password" maxlength="100">
+        </div>
+        <div id="adminLoginErrorMsg" class="form-error-msg" style="display: none;"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn secondary" id="cancelAdminLoginModal">Batal</button>
+          <button type="submit" class="btn primary" id="adminLoginSubmitBtn">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js?v=20260922v5"></script>
+
+<!-- Admin access layer -->
+<div id="admin-login-modal" class="admin-modal" aria-hidden="true">
+  <div class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="admin-login-title">
+    <button type="button" class="admin-modal-close" id="admin-login-close" aria-label="Tutup">×</button>
+    <h2 id="admin-login-title">Admin Login</h2>
+    <p class="admin-muted">Masuk untuk mengelola website.</p>
+    <form id="admin-login-form">
+      <label>Username
+        <input id="admin-username" autocomplete="username" required>
+      </label>
+      <label>Password
+        <input id="admin-password" type="password" autocomplete="current-password" required>
+      </label>
+      <p id="admin-login-error" class="admin-error" hidden></p>
+      <button type="submit" class="admin-primary">Login</button>
+    </form>
+  </div>
+</div>
+
+<div id="admin-toolbar" class="admin-toolbar" hidden>
+  <span>🔐 Admin Mode</span>
+  <button type="button" id="admin-logout" class="admin-secondary">Logout</button>
+</div>
+
+<button type="button" id="admin-login-button" class="admin-login-button" aria-label="Admin Login">
+  Admin Login
+</button>
+
 </body>
 </html>
